@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zuhura Wangara — PR & Marketing Consultant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --navy-mid: #1a3260;
+    --navy-light: #2a4a8a;
+    --white: #f5f5f0;
+    --grey-mid: #b0b0a8;
+    --grey-dark: #555550;
+    --black: #0a0a0a;
+    --accent: #c8a96e;
+    --accent-light: #e8d4a8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; cursor: none; }
+
+  /* CURSOR */
+  .cursor { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; transform: translate(-50%,-50%); }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid rgba(200,169,110,0.5); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: transform 0.08s ease, opacity 0.2s; transform: translate(-50%,-50%); }
+
+  /* BG GRID */
+  body::before { content: ''; position: fixed; inset: 0; z-index: 0; background-image: linear-gradient(rgba(200,169,110,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(200,169,110,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.4rem 4rem; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(200,169,110,0.12); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--accent); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-mid); text-decoration: none; transition: color 0.2s; cursor: none; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 8rem 4rem 6rem 6rem; position: relative; z-index: 2; }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--accent); }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5.5vw, 5.2rem); line-height: 1.0; color: var(--white); }
+  h1 em { font-style: italic; color: var(--accent); display: block; }
+  .hero-sub { font-size: 1rem; color: var(--grey-mid); line-height: 1.8; max-width: 480px; margin: 1.8rem 0 2.8rem; font-weight: 300; }
+  .hero-sub strong { color: var(--white); font-weight: 500; }
+  .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.25s; cursor: none; }
+  .btn-primary { background: var(--accent); color: var(--black); font-weight: 500; }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
+  .btn-outline { border: 1px solid rgba(200,169,110,0.4); color: var(--accent); }
+  .btn-outline:hover { border-color: var(--accent); background: rgba(200,169,110,0.08); transform: translateY(-2px); }
+  .hero-right { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-graphic { position: absolute; inset: 0; background: radial-gradient(ellipse at 60% 40%, rgba(42,74,138,0.35) 0%, transparent 60%), radial-gradient(ellipse at 30% 80%, rgba(200,169,110,0.15) 0%, transparent 50%); }
+  .hero-stat-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: rgba(200,169,110,0.15); border: 1px solid rgba(200,169,110,0.2); }
+  .hero-stat { background: rgba(10,10,10,0.9); padding: 2.2rem 2rem; text-align: center; }
+  .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+  .hero-stat-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-mid); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 6rem 3rem; }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+  .section-label::before { content: ''; display: inline-block; width: 1.5rem; height: 1px; background: var(--accent); }
+  h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; color: var(--white); margin-bottom: 2.5rem; }
+  h2 em { color: var(--accent); font-style: italic; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(200,169,110,0.3), transparent); }
+
+  /* ABOUT */
+  #about { background: var(--black); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { font-size: 1rem; line-height: 1.85; color: var(--grey-mid); margin-bottom: 1.2rem; font-weight: 300; }
+  .about-text p strong { color: var(--white); font-weight: 500; }
+  .about-text p em { color: var(--accent); font-style: normal; }
+  .about-facts { display: flex; flex-direction: column; gap: 1px; }
+  .fact-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(200,169,110,0.1); padding: 1.3rem 1.5rem; display: flex; gap: 1.1rem; align-items: flex-start; transition: background 0.2s, border-color 0.2s; }
+  .fact-item:hover { background: rgba(200,169,110,0.05); border-color: rgba(200,169,110,0.25); }
+  .fact-icon { font-size: 1.2rem; min-width: 1.5rem; margin-top: 0.1rem; }
+  .fact-title { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+  .fact-desc { font-size: 0.87rem; color: var(--grey-mid); line-height: 1.5; }
+
+  /* WINS / PORTFOLIO */
+  #wins { background: rgba(15,31,61,0.4); }
+  .wins-intro { font-size: 1rem; color: var(--grey-mid); max-width: 620px; margin-bottom: 3rem; line-height: 1.7; font-weight: 300; }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.15); margin-bottom: 1.5px; }
+  .win-card { background: var(--black); padding: 2rem 1.8rem; transition: background 0.25s; position: relative; overflow: hidden; }
+  .win-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .win-card:hover::before { transform: scaleX(1); }
+  .win-card:hover { background: rgba(200,169,110,0.04); }
+  .win-outlet { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .win-role { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-dark); margin-bottom: 0.7rem; }
+  .win-desc { font-size: 0.84rem; color: var(--grey-mid); line-height: 1.6; margin-bottom: 1rem; font-weight: 300; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; padding: 0.22rem 0.55rem; border: 1px solid rgba(200,169,110,0.2); color: var(--grey-dark); text-transform: uppercase; border-radius: 1px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .outlets-bar { background: rgba(10,10,10,0.95); border: 1px solid rgba(200,169,110,0.12); border-top: none; padding: 1.6rem 2rem; }
+  .outlets-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(200,169,110,0.4); margin-bottom: 1rem; text-align: center; }
+  .outlets-list { display: flex; flex-wrap: wrap; gap: 0.8rem 2.5rem; justify-content: center; align-items: center; }
+  .outlet-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--grey-dark); transition: color 0.2s; }
+  .outlet-name:hover { color: var(--grey-mid); }
+
+  .metrics-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.12); margin-top: 1.5px; }
+  .metric { background: var(--black); padding: 2rem 1.5rem; text-align: center; }
+  .metric-num { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--white); line-height: 1; margin-bottom: 0.5rem; }
+  .metric-num span { color: var(--accent); }
+  .metric-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-dark); }
+
+  /* SERVICES */
+  #services { background: var(--black); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.12); }
+  .service-card { background: var(--black); padding: 2.5rem 2rem; transition: background 0.25s; }
+  .service-card:hover { background: rgba(200,169,110,0.04); }
+  .service-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: rgba(200,169,110,0.35); margin-bottom: 1rem; }
+  .service-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); margin-bottom: 0.8rem; line-height: 1.3; }
+  .service-desc { font-size: 0.87rem; color: var(--grey-mid); line-height: 1.7; margin-bottom: 1.2rem; font-weight: 300; }
+  .service-price { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+
+  /* IDEAL CLIENTS */
+  #clients { background: rgba(15,31,61,0.25); }
+  .clients-intro { font-size: 1rem; color: var(--grey-mid); max-width: 580px; margin-bottom: 3rem; line-height: 1.7; font-weight: 300; }
+  .clients-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.12); margin-bottom: 2rem; }
+  .client-card { background: var(--black); padding: 2rem; display: flex; gap: 1.2rem; align-items: flex-start; transition: background 0.2s; }
+  .client-card:hover { background: rgba(200,169,110,0.04); }
+  .client-icon { font-size: 1.5rem; min-width: 2rem; }
+  .client-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin-bottom: 0.4rem; }
+  .client-desc { font-size: 0.85rem; color: var(--grey-mid); line-height: 1.6; font-weight: 300; }
+  .not-fit { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 2rem; border-radius: 2px; }
+  .not-fit-title { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-dark); margin-bottom: 0.8rem; }
+  .not-fit p { font-size: 0.87rem; color: var(--grey-dark); line-height: 1.6; }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--black); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.12); margin-bottom: 1.5px; }
+  .testi-grid-2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.12); border-top: none; }
+  .testi-card { background: var(--black); padding: 2.2rem 2rem; transition: background 0.2s; }
+  .testi-card:hover { background: rgba(200,169,110,0.03); }
+  .testi-quote { font-family: 'Playfair Display', serif; font-size: 3rem; color: rgba(200,169,110,0.2); line-height: 0.5; margin-bottom: 1rem; }
+  .testi-text { font-size: 0.9rem; color: var(--grey-mid); line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; font-weight: 300; }
+  .testi-author { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .testi-role { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; color: var(--grey-dark); margin-top: 0.2rem; }
+  .testi-placeholder { background: var(--black); border: none; padding: 2.2rem 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 200px; }
+  .testi-placeholder p { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; color: rgba(200,169,110,0.25); text-transform: uppercase; line-height: 1.8; }
+
+  /* CONTACT */
+  #contact { background: rgba(15,31,61,0.3); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-left p { font-size: 1rem; color: var(--grey-mid); line-height: 1.8; margin-bottom: 1.2rem; font-weight: 300; }
+  .contact-left p strong { color: var(--white); }
+  .contact-links { display: flex; flex-direction: column; gap: 1px; margin-top: 2rem; }
+  .contact-link { background: rgba(255,255,255,0.02); border: 1px solid rgba(200,169,110,0.1); padding: 1.1rem 1.5rem; display: flex; align-items: center; gap: 1rem; text-decoration: none; transition: all 0.2s; cursor: none; }
+  .contact-link:hover { background: rgba(200,169,110,0.06); border-color: rgba(200,169,110,0.3); }
+  .contact-link-icon { font-size: 1rem; }
+  .contact-link-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-dark); flex: 1; }
+  .contact-link-value { font-size: 0.85rem; color: var(--grey-mid); }
+  .contact-form { display: flex; flex-direction: column; gap: 1px; }
+  .form-field { display: flex; flex-direction: column; }
+  .form-field label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-dark); padding: 0.6rem 0 0; }
+  .form-field input, .form-field textarea, .form-field select { background: rgba(255,255,255,0.03); border: 1px solid rgba(200,169,110,0.15); border-top: none; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 0.9rem 1rem; outline: none; transition: border-color 0.2s, background 0.2s; appearance: none; }
+  .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color: rgba(200,169,110,0.5); background: rgba(200,169,110,0.04); }
+  .form-field textarea { resize: vertical; min-height: 110px; }
+  .form-field select option { background: #1a1a1a; }
+  .form-submit { margin-top: 0.5rem; background: var(--accent); color: var(--black); border: none; padding: 1rem 2rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; cursor: none; transition: background 0.2s, transform 0.2s; }
+  .form-submit:hover { background: var(--accent-light); transform: translateY(-1px); }
+  .form-note { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--grey-dark); letter-spacing: 0.08em; margin-top: 0.8rem; text-align: center; }
+
+  /* FOOTER */
+  footer { background: var(--black); border-top: 1px solid rgba(200,169,110,0.1); padding: 2rem 6rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--accent); }
+  .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--grey-dark); }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .nav-links a { font-size: 0.6rem; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 7rem 1.5rem 3rem; }
+    .hero-right { display: none; }
+    .section-wrap { padding: 4rem 1.5rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .portfolio-grid, .services-grid, .testi-grid, .testi-grid-2 { grid-template-columns: 1fr; }
+    .clients-grid { grid-template-columns: 1fr; }
+    .metrics-row { grid-template-columns: repeat(2, 1fr); }
+    footer { flex-direction: column; gap: 1rem; padding: 2rem; text-align: center; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ZW</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#wins">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#clients">Ideal Clients</a></li>
+    <li><a href="#testimonials">Kind Words</a></li>
+    <li><a href="#contact">Work With Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">PR & Marketing Consultant</div>
+    <h1>I make brands <em>impossible to ignore.</em></h1>
+    <p class="hero-sub">
+      10+ years. Three continents. One mission: <strong>get you seen, heard, and respected</strong> by the right people. I'm Zuhura — senior PR strategist, media relations expert, and the person your brand calls when you're tired of being the best-kept secret in your industry.
+    </p>
+    <div class="btn-row">
+      <a href="#contact" class="btn btn-primary">Let's Talk ↗</a>
+      <a href="#wins" class="btn btn-outline">See My Work</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-graphic"></div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat">
+        <div class="hero-stat-num">10+</div>
+        <div class="hero-stat-label">Years Experience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">30+</div>
+        <div class="hero-stat-label">Media Placements</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Continents Served</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">Stories to Tell</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-label">The Human Behind the Headlines</div>
+    <h2>Strategic. Sharp. <em>Occasionally Funny.</em></h2>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>I've been doing this long enough to know that <strong>the best PR isn't about spinning stories</strong> — it's about finding the genuine, compelling truth inside your brand and putting it in front of exactly the right people, in exactly the right way.</p>
+        <p>I've worked with Silicon Valley entrepreneurs, US law firm networks, wellness coaches, tech founders, authors, and global remote teams. I've pitched journalists at 6am, managed crisis comms at midnight, and celebrated a <em>BBC feature</em> like it was a national holiday (because honestly, it was).</p>
+        <p>What I bring to the table isn't just media contacts and a content calendar. It's <strong>strategic thinking, executive-level partnership, and a genuine commitment to making you look spectacular</strong> — without the agency markup, the account manager runaround, or the monthly report nobody reads.</p>
+        <p>I work remotely, I work smart, and I deliver. That's the whole pitch.</p>
+      </div>
+      <div class="about-facts">
+        <div class="fact-item">
+          <div class="fact-icon">🌍</div>
+          <div class="fact-body">
+            <div class="fact-title">Based in Nairobi, Kenya</div>
+            <div class="fact-desc">Working with US, UK, and international clients across time zones. Flexibility is kind of my thing.</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <div class="fact-icon">🎓</div>
+          <div class="fact-body">
+            <div class="fact-title">BA Communication & Media — Maseno University</div>
+            <div class="fact-desc">Followed by 10+ years of getting things done in the real world, which honestly taught me more.</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <div class="fact-icon">⚡</div>
+          <div class="fact-body">
+            <div class="fact-title">Full-Stack PR & Marketing</div>
+            <div class="fact-desc">Strategy, media pitching, content, social, events, executive comms — yes, all of it. No, I don't sleep.</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <div class="fact-icon">🤝</div>
+          <div class="fact-body">
+            <div class="fact-title">Executive Business Partner Experience</div>
+            <div class="fact-desc">I've operated as strategic right-hand to CEOs — building SOPs, automating workflows, aligning teams. I think like a founder.</div>
+          </div>
+        </div>
+        <div class="fact-item">
+          <div class="fact-icon">💬</div>
+          <div class="fact-body">
+            <div class="fact-title">Fluent in English & Swahili</div>
+            <div class="fact-desc">Communicating across cultures is literally in the job description. And I happen to enjoy it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PORTFOLIO & MEDIA WINS -->
+<section id="wins">
+  <div class="section-wrap">
+    <div class="section-label">Portfolio & Media Wins</div>
+    <h2>Clients I've Made <em>Look Spectacular</em></h2>
+    <p class="wins-intro">Real clients. Real placements. Real results. From Silicon Valley entrepreneurs to global wellness coaches, clean tech founders to published authors — here's a snapshot of who I've worked with and what we built together.</p>
+
+    <div class="portfolio-grid fade-in">
+      <div class="win-card">
+        <div class="win-outlet">Nora Szanto</div>
+        <div class="win-role">EFT Practitioner & High-Performance Strategist</div>
+        <div class="win-desc">Full PR campaign for her book launch — The Celestina Code. Brand kit, long & short bios, podcast bookings, press release distribution, influencer outreach, and media pitches positioning her as a leading family wellness voice.</div>
+        <div class="tag-row"><span class="tag">Authority Magazine</span><span class="tag">Daily Moss</span><span class="tag">Digital Journal</span><span class="tag">EIN Presswire</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Melissa Bauknight</div>
+        <div class="win-role">CEO, Nova Global (formerly The Ripple Connection)</div>
+        <div class="win-desc">Full-service PR for a business and life coach to 1,000+ women. Website revamp, brand kit, bios, podcast bookings, press release distribution, digital marketing strategy, and speaking event coordination.</div>
+        <div class="tag-row"><span class="tag">Authority Magazine</span><span class="tag">EIN News</span><span class="tag">Website Revamp</span><span class="tag">Podcast Bookings</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Irete Hamdani</div>
+        <div class="win-role">Founder, askBelynda — Sustainable Tech, Denver CO</div>
+        <div class="win-desc">PR strategy for an AWS-certified tech founder behind a sustainable shopping Chrome extension. Multiple Authority Magazine features positioning her as a green-tech thought leader, plus press releases and podcast placements.</div>
+        <div class="tag-row"><span class="tag">Authority Magazine ×4</span><span class="tag">HV Times</span><span class="tag">Green Tech PR</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Sam Kabert</div>
+        <div class="win-role">Silicon Valley "40 Under 40" — Entrepreneur & Wellness Advocate</div>
+        <div class="win-desc">PR, podcast bookings, and social media content production for a serial entrepreneur turned mindfulness leader. Reels, thumbnails, YouTube Shorts, and media placements building his wellness authority platform.</div>
+        <div class="tag-row"><span class="tag">Authority Magazine</span><span class="tag">The Table Read UK</span><span class="tag">Video & Reels</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Kale Sudhoff</div>
+        <div class="win-role">Author & Speaker</div>
+        <div class="win-desc">PR and media strategy for a published author — podcast bookings, press outreach, brand positioning, and media pitches to establish him as a credible voice in his space and drive book visibility and speaking opportunities.</div>
+        <div class="tag-row"><span class="tag">Author PR</span><span class="tag">Podcast Bookings</span><span class="tag">Media Pitches</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Ronan Walsh</div>
+        <div class="win-role">Business Leader & Executive</div>
+        <div class="win-desc">Executive communications and PR strategy — thought leadership positioning, media outreach, and brand narrative development to build his professional profile and expand his visibility in key markets.</div>
+        <div class="tag-row"><span class="tag">Executive PR</span><span class="tag">Thought Leadership</span><span class="tag">Brand Narrative</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Gretchen</div>
+        <div class="win-role">Authsnap Client — via Venable Network</div>
+        <div class="win-desc">PR and brand communications for a client connected through Authsnap and Startegix, working within the Venable ecosystem — one of the leading US law and lobbying firms. Media strategy, executive visibility, and brand positioning.</div>
+        <div class="tag-row"><span class="tag">Executive PR</span><span class="tag">Venable Network</span><span class="tag">Brand Strategy</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Dr. Wael</div>
+        <div class="win-role">Authsnap Client — via Venable Network</div>
+        <div class="win-desc">Strategic PR and communications for a professional client within the Authsnap/Startegix portfolio. Authority positioning, media outreach, and communications strategy tailored to his professional field and target audience.</div>
+        <div class="tag-row"><span class="tag">Professional PR</span><span class="tag">Authority Building</span><span class="tag">Media Strategy</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Pamela Lue-Hing</div>
+        <div class="win-role">Life & Business Coach — Powerhouse in Motion</div>
+        <div class="win-desc">Full social media management and PR across all platforms. Marketing plan, content creation, social design, copywriting, and community management — keeping her brand consistent, active, and growing.</div>
+        <div class="tag-row"><span class="tag">Social Strategy</span><span class="tag">Content Creation</span><span class="tag">LinkedIn</span><span class="tag">Instagram</span></div>
+      </div>
+    </div>
+
+    <div class="portfolio-grid fade-in" style="border-top:none;">
+      <div class="win-card">
+        <div class="win-outlet">Forbes</div>
+        <div class="win-role">Leadership & Crisis Management — Edward Segal, Senior Contributor</div>
+        <div class="win-desc">Secured a Forbes quote for John Harte of Integrity Governance in a leadership piece on how boards should prepare for and respond to CEO crises — written, pitched, and placed without a single AI tool. Pure craft. Oct 2022.</div>
+        <div class="tag-row"><span class="tag">Forbes.com</span><span class="tag">Crisis Communications</span><span class="tag">Board Governance</span></div>
+      </div>
+      <div class="win-card">
+        <div class="win-outlet">Qwoted Top 100</div>
+        <div class="win-role">Inaugural Top 100 Communications Professionals — Qwoted</div>
+        <div class="win-desc">Recognised in Qwoted's very first Top 100 Communications Professionals list — a platform used by thousands of journalists and PR pros globally. Named among the top practitioners in the field at launch.</div>
+        <div class="tag-row"><span class="tag">Industry Recognition</span><span class="tag">Top 100</span><span class="tag">Communications</span></div>
+      </div>
+      <div class="win-card" style="display:flex;align-items:center;justify-content:center;text-align:center;">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:rgba(200,169,110,0.2);margin-bottom:0.5rem;">+30</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--grey-dark);">More placements across<br/>podcasts, TV & digital media</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outlets-bar fade-in">
+      <div class="outlets-label">Featured In</div>
+      <div class="outlets-list">
+        <span class="outlet-name">BBC</span>
+        <span class="outlet-name">Thrive Global</span>
+        <span class="outlet-name">Authority Magazine</span>
+        <span class="outlet-name">Digital Journal</span>
+        <span class="outlet-name">EIN Presswire</span>
+        <span class="outlet-name">HV Times</span>
+        <span class="outlet-name">The Table Read</span>
+        <span class="outlet-name">KTN · NTV · K24</span>
+        <span class="outlet-name">Nation · Standard</span>
+        <span class="outlet-name">Daily Moss</span>
+        <span class="outlet-name">Forbes</span>
+      </div>
+    </div>
+
+    <div class="metrics-row fade-in">
+      <div class="metric"><div class="metric-num">30<span>+</span></div><div class="metric-label">Organic Media Features</div></div>
+      <div class="metric"><div class="metric-num">45<span>%</span></div><div class="metric-label">Website Traffic Growth</div></div>
+      <div class="metric"><div class="metric-num">30<span>%</span></div><div class="metric-label">Social Engagement Increase</div></div>
+      <div class="metric"><div class="metric-num">25<span>%</span></div><div class="metric-label">Rise in Product Inquiries</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-wrap">
+    <div class="section-label">What I Do</div>
+    <h2>Services & <em>Packages</em></h2>
+    <div class="services-grid fade-in">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-title">PR & Media Relations Retainer</div>
+        <div class="service-desc">Monthly media pitching, journalist relationship management, press release writing, and placement reporting. I chase the stories so you don't have to.</div>
+        <div class="service-price">Retainer — from $1,500/mo</div>
+        <div class="tag-row"><span class="tag">Media Pitching</span><span class="tag">Press Releases</span><span class="tag">Cision/Meltwater</span><span class="tag">Coverage Reports</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-title">Brand & Marketing Strategy</div>
+        <div class="service-desc">Full brand audit, positioning work, messaging frameworks, and a marketing strategy that actually connects with your audience. No fluff. No 80-page decks nobody reads.</div>
+        <div class="service-price">Project-based / Retainer</div>
+        <div class="tag-row"><span class="tag">Brand Positioning</span><span class="tag">Content Strategy</span><span class="tag">Campaign Planning</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-title">Executive Communications</div>
+        <div class="service-desc">Ghostwriting, thought leadership content, executive LinkedIn presence, and messaging for founders and C-suite leaders who need a voice that sounds like them — just better.</div>
+        <div class="service-price">Retainer — from $1,200/mo</div>
+        <div class="tag-row"><span class="tag">Ghostwriting</span><span class="tag">LinkedIn</span><span class="tag">Thought Leadership</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-title">Digital Marketing Management</div>
+        <div class="service-desc">Social media strategy and management, email campaigns, content calendars, and performance tracking. Everything consistent, on-brand, and actually engaging.</div>
+        <div class="service-price">Retainer — from $1,000/mo</div>
+        <div class="tag-row"><span class="tag">Social Media</span><span class="tag">Email Marketing</span><span class="tag">Content Calendar</span><span class="tag">Analytics</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <div class="service-title">Executive Business Partnership</div>
+        <div class="service-desc">Strategic right-hand support for founders and CEOs — SOP development, cross-team alignment, workflow automation, and making sure the whole operation actually runs.</div>
+        <div class="service-price">Retainer — custom pricing</div>
+        <div class="tag-row"><span class="tag">SOPs</span><span class="tag">Operations</span><span class="tag">Automation</span><span class="tag">Strategy</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <div class="service-title">One-Off Projects</div>
+        <div class="service-desc">Launch PR campaigns, media list builds, brand audits, pitch decks, book launch PR, event comms. If you have a specific goal and a timeline, let's scope it out.</div>
+        <div class="service-price">Project-based — custom quote</div>
+        <div class="tag-row"><span class="tag">Launches</span><span class="tag">Campaigns</span><span class="tag">Events</span><span class="tag">Book PR</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- IDEAL CLIENTS -->
+<section id="clients">
+  <div class="section-wrap">
+    <div class="section-label">Who I Work Best With</div>
+    <h2>My Kind of <em>Client</em></h2>
+    <p class="clients-intro">Not everyone is a great fit — and that's okay. I work best with people who have something worth saying, a vision worth building, and the good sense to let an expert run with it.</p>
+    <div class="clients-grid fade-in">
+      <div class="client-card">
+        <div class="client-icon">🚀</div>
+        <div>
+          <div class="client-title">Founders & Startups Ready to Scale</div>
+          <div class="client-desc">You've built something real. Now you need people to know it exists. I help founders go from invisible to undeniable — without burning the runway on a bloated agency retainer.</div>
+        </div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">🏢</div>
+        <div>
+          <div class="client-title">US & UK Businesses Going Global</div>
+          <div class="client-desc">You need someone who understands international media landscapes and brings genuine cross-cultural communication skills. Three continents of experience. That's my sweet spot.</div>
+        </div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">🎤</div>
+        <div>
+          <div class="client-title">Executives & Authors Building a Platform</div>
+          <div class="client-desc">You're an expert — or a published author — but the world doesn't quite know it yet. I position you as the authority you already are through media, podcasts, and executive storytelling.</div>
+        </div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">💡</div>
+        <div>
+          <div class="client-title">Purpose-Driven & Mission-Led Brands</div>
+          <div class="client-desc">Impact-first organizations, social enterprises, and brands where the story actually matters. I love working where the mission is real and the work has meaning beyond the bottom line.</div>
+        </div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">🛠️</div>
+        <div>
+          <div class="client-title">Agencies Needing a Senior Plug-In</div>
+          <div class="client-desc">Need a senior PR or marketing resource without the overhead? I work with agencies as an embedded consultant — senior thinking, flexible terms, no drama, no ego.</div>
+        </div>
+      </div>
+      <div class="client-card">
+        <div class="client-icon">🌱</div>
+        <div>
+          <div class="client-title">Coaches, Consultants & Thought Leaders</div>
+          <div class="client-desc">You have a powerful framework and a transformational message. I help coaches and consultants build the media presence and brand credibility that matches what they actually deliver.</div>
+        </div>
+      </div>
+    </div>
+    <div class="not-fit fade-in">
+      <div class="not-fit-title">Probably Not a Great Fit If...</div>
+      <p>You want someone to post daily memes, you need 12 approvals for a tweet, you're looking for someone to work for exposure, or you think "going viral" is a strategy. No hard feelings — we're just not each other's people. 😄</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-wrap">
+    <div class="section-label">Kind Words</div>
+    <h2>What Clients <em>Actually Say</em></h2>
+
+    <div class="testi-grid fade-in">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">Zuhura doesn't just pitch — she understands your brand deeply and tells your story in a way that actually resonates with journalists. The BBC placement was beyond what we expected and completely changed how people saw us.</div>
+        <div class="testi-author">Client, 4Life Solutions</div>
+        <div class="testi-role">Clean Water Innovation — Nairobi, Kenya</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">Working with Zuhura felt like having a true strategic partner. She built our SOPs, aligned the team, and brought a level of calm, professional clarity that elevated everything across the business. I couldn't have scaled without her.</div>
+        <div class="testi-author">CEO, StriveWell</div>
+        <div class="testi-role">Fitness Studio — New Jersey, USA</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">She secured us multiple Authority Magazine features and positioned our brand exactly where we needed to be in the market. Zuhura has a rare ability to translate a complex vision into compelling media narratives that actually get picked up.</div>
+        <div class="testi-author">Irete Hamdani</div>
+        <div class="testi-role">Founder, askBelynda — Denver, CO</div>
+      </div>
+    </div>
+    <div class="testi-grid-2 fade-in">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">[Placeholder — replace with Gretchen's actual words when ready]</div>
+        <div class="testi-author">Gretchen</div>
+        <div class="testi-role">Authsnap Client — Venable Network</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">[Placeholder — replace with Dr. Wael's actual words when ready]</div>
+        <div class="testi-author">Dr. Wael</div>
+        <div class="testi-role">Authsnap Client — Venable Network</div>
+      </div>
+      <div class="testi-placeholder">
+        <p>More kind words<br/>coming soon.<br/><br/>Yours could be next. 😄</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="section-label">Work With Me</div>
+    <h2>Let's Make Your Brand <em>Unforgettable</em></h2>
+    <div class="contact-grid fade-in">
+      <div class="contact-left">
+        <p>Ready to stop being the best-kept secret in your industry? <strong>Let's talk.</strong></p>
+        <p>I take on a small number of retainer clients at a time — which means when you work with me, you get <strong>actual focus, not a junior account manager and a template.</strong></p>
+        <p>Send a message, book a discovery call, or connect on LinkedIn. I reply fast, I don't do fluff, and I promise the first conversation will be worth your time.</p>
+        <div class="contact-links">
+          <a href="mailto:zuewangarah@gmail.com" class="contact-link">
+            <span class="contact-link-icon">✉️</span>
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-value">zuewangarah@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/zuhuramiriam/" target="_blank" class="contact-link">
+            <span class="contact-link-icon">💼</span>
+            <span class="contact-link-label">LinkedIn</span>
+            <span class="contact-link-value">linkedin.com/in/zuhuramiriam</span>
+          </a>
+          <a href="tel:+254724653660" class="contact-link">
+            <span class="contact-link-icon">📞</span>
+            <span class="contact-link-label">WhatsApp / Phone</span>
+            <span class="contact-link-value">+254 724 653660</span>
+          </a>
+          <a href="https://calendly.com/zuhura/appointmentmeet" target="_blank" class="contact-link">
+            <span class="contact-link-icon">📅</span>
+            <span class="contact-link-label">Book a Discovery Call</span>
+            <span class="contact-link-value">30 min — no obligation</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-field">
+            <label>Your Name</label>
+            <input type="text" placeholder="Jane Smith" required/>
+          </div>
+          <div class="form-field">
+            <label>Email Address</label>
+            <input type="email" placeholder="jane@company.com" required/>
+          </div>
+          <div class="form-field">
+            <label>I'm Looking For</label>
+            <select>
+              <option value="">Select a service...</option>
+              <option>PR &amp; Media Relations</option>
+              <option>Brand &amp; Marketing Strategy</option>
+              <option>Executive Communications</option>
+              <option>Digital Marketing Management</option>
+              <option>Executive Business Partnership</option>
+              <option>One-Off Project</option>
+              <option>Something Else</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Tell Me About Your Brand</label>
+            <textarea placeholder="What are you building, what do you need, and what's the timeline?"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message →</button>
+          <div class="form-note">I typically reply within 24 hours. No spam. No unsolicited newsletters.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Zuhura Wangara</div>
+  <div class="footer-copy">© 2026 · PR & Marketing Consultant · Nairobi, Kenya</div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function animCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  })();
+  document.querySelectorAll('a, button, .win-card, .service-card, .client-card, .fact-item, .testi-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.opacity = '0.3'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '1'; });
+  });
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#4a7c59';
+    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3000);
+  }
+</script>
+</body>
+</html>
